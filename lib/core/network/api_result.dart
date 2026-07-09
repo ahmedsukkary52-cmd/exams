@@ -1,16 +1,17 @@
-sealed class ApiResults<T> {
-  String? message;
-  Exception? exception;
-  T? data;
+import 'app_error.dart';
 
-  ApiResults(this.message, this.exception, this.data);
+sealed class ApiResult<T> {
+  const ApiResult();
 }
 
-class Success<T> extends ApiResults<T> {
-  Success(T? data) : super(null, null, data);
+final class Success<T> extends ApiResult<T> {
+  final T data;
+
+  const Success(this.data);
 }
 
-class Failure<T> extends ApiResults<T> {
-  Failure(String? message, Exception? exception)
-    : super(message, exception, null);
+final class Failure<T> extends ApiResult<T> {
+  final AppError error;
+
+  const Failure(this.error);
 }

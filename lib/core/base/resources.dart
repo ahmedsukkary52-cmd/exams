@@ -1,19 +1,45 @@
-enum Status { success, loading, error, init }
+enum Status {
+  initial,
+  loading,
+  success,
+  error,
+}
 
-class Resources<T> {
-  String? message;
-  Exception? exception;
-  T? data;
-  Status status;
+class Resource<T> {
+  final Status status;
+  final T? data;
+  final String? message;
+  final Exception? exception;
 
-  Resources._() : status = Status.init;
+  const Resource._({
+    required this.status,
+    this.data,
+    this.message,
+    this.exception,
+  });
 
-  Resources.init() : status = Status.init;
+  const Resource.initial()
+      : this._(
+    status: Status.initial,
+  );
 
-  Resources.loading() : status = Status.loading;
+  const Resource.loading()
+      : this._(
+    status: Status.loading,
+  );
 
-  Resources.error({this.message, this.data, this.exception})
-    : status = Status.error;
+  const Resource.success(T data)
+      : this._(
+    status: Status.success,
+    data: data,
+  );
 
-  Resources.success({this.data}) : status = Status.success;
+  const Resource.error({
+    String? message,
+    Exception? exception,
+  }) : this._(
+    status: Status.error,
+    message: message,
+    exception: exception,
+  );
 }

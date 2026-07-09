@@ -1,20 +1,19 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 import 'api_result.dart';
+import 'app_error.dart';
 
-Future<ApiResults<T>> safeCall<T>(Future<ApiResults<T>> Function() call) async {
+Future<ApiResult<T>> safeCall<T>(Future<ApiResult<T>> Function() call,) async {
   try {
-    return call();
-  } on TimeoutException catch (e) {
-    return Failure(e.toString(), e);
+    return await call();
   } on DioException catch (e) {
-    return Failure(e.toString(), e);
-  } on IOException catch (e) {
-    return Failure(e.toString(), e);
+    final error = ErrorParser.parse(e);
+    return Failure(error);
   } catch (e) {
-    return Failure(e.toString(), e as Exception);
+    return Failure(
+      UnknownAppError(
+        exception: e is Exception ? e : Exception(e.toString()),
+      ),
+    );
   }
 }
