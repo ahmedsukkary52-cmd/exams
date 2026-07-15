@@ -11,6 +11,8 @@ class ApiEndpoints {
   static const signin = 'api/v1/auth/signin';
   static const addExam = 'api/v1/exams';
 
+  static const getAllExams = 'api/v1/exams';
+
   static const publicEndpoints = [
     signin,
     signup,
