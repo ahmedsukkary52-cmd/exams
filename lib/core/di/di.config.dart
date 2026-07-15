@@ -23,6 +23,15 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart'
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
 import '../../features/auth/domain/usecases/signup_use_case.dart' as _i229;
 import '../../features/auth/presentation/cubit/auth_cubit.dart' as _i117;
+import '../../features/exam/data/data_sources/exams_remote_data_source.dart'
+    as _i673;
+import '../../features/exam/data/data_sources/exams_remote_data_source_impl.dart'
+    as _i4;
+import '../../features/exam/data/repo/exams_repo_impl.dart' as _i1062;
+import '../../features/exam/domain/repo/exams_repo.dart' as _i725;
+import '../../features/exam/domain/use_cases/get_all_exams_use_case.dart'
+    as _i665;
+import '../../features/exam/presentation/cubit/exams_cubit.dart' as _i724;
 import '../network/api_services/api_services.dart' as _i240;
 import '../network/auth_interceptor.dart' as _i908;
 import '../network/network_module.dart' as _i200;
@@ -52,11 +61,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i240.ApiServices>(
       () => networkModule.provideApiServices(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i673.ExamsRemoteDataSource>(
+      () => _i4.ExamsRemoteDataSourceImpl(gh<_i240.ApiServices>()),
+    );
     gh.lazySingleton<_i432.AuthRemoteDataSource>(
       () => _i299.AuthRemoteDataSourceImpl(gh<_i240.ApiServices>()),
     );
+    gh.lazySingleton<_i725.ExamsRepo>(
+      () => _i1062.ExamsRepoImpl(gh<_i673.ExamsRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i665.GetAllExamsUseCase>(
+      () => _i665.GetAllExamsUseCase(gh<_i725.ExamsRepo>()),
+    );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(gh<_i432.AuthRemoteDataSource>()),
+    );
+    gh.factory<_i724.ExamsCubit>(
+      () => _i724.ExamsCubit(gh<_i665.GetAllExamsUseCase>()),
     );
     gh.lazySingleton<_i229.SignupUseCase>(
       () => _i229.SignupUseCase(gh<_i787.AuthRepository>()),
