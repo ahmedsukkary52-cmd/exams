@@ -87,7 +87,7 @@ class _SignupPageState extends State<SignupPage> {
         listener: (context, state) {
           switch (state.signup.status) {
             case Status.success:
-              context.push(RouteNames.exam);
+              context.push(RouteNames.explore);
               break;
             case Status.error:
               ScaffoldMessenger.of(context).showSnackBar(
