@@ -31,6 +31,8 @@ import '../../features/exam/data/repo/exams_repo_impl.dart' as _i1062;
 import '../../features/exam/domain/repo/exams_repo.dart' as _i725;
 import '../../features/exam/domain/use_cases/get_all_exams_use_case.dart'
     as _i665;
+import '../../features/exam/domain/use_cases/get_subjects_use_case.dart'
+    as _i534;
 import '../../features/exam/presentation/cubit/exams_cubit.dart' as _i724;
 import '../network/api_services/api_services.dart' as _i240;
 import '../network/auth_interceptor.dart' as _i908;
@@ -73,11 +75,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i665.GetAllExamsUseCase>(
       () => _i665.GetAllExamsUseCase(gh<_i725.ExamsRepo>()),
     );
+    gh.lazySingleton<_i534.GetSubjectsUseCase>(
+      () => _i534.GetSubjectsUseCase(gh<_i725.ExamsRepo>()),
+    );
     gh.lazySingleton<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(gh<_i432.AuthRemoteDataSource>()),
     );
     gh.factory<_i724.ExamsCubit>(
-      () => _i724.ExamsCubit(gh<_i665.GetAllExamsUseCase>()),
+      () => _i724.ExamsCubit(
+        gh<_i665.GetAllExamsUseCase>(),
+        gh<_i534.GetSubjectsUseCase>(),
+      ),
     );
     gh.lazySingleton<_i229.SignupUseCase>(
       () => _i229.SignupUseCase(gh<_i787.AuthRepository>()),

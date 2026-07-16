@@ -1,3 +1,4 @@
+import 'package:exams/features/exam/domain/entities/subject_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,11 +7,10 @@ import '../../../../core/theme/theme_app.dart';
 class SubjectCard extends StatelessWidget {
   const SubjectCard({
     super.key,
-    required this.title,
-    this.onTap,
+    this.onTap, required this.subject,
   });
 
-  final String title;
+  final SubjectEntity subject;
   final VoidCallback? onTap;
 
   @override
@@ -35,15 +35,23 @@ class SubjectCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.school_rounded,
-              size: 48.sp,
-              color: ThemeApp.colors.primary,
+            Image.network(
+              subject.icon,
+              width: 48,
+              height: 48,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, progress) {
+                if (progress == null) return child;
+                return const CircularProgressIndicator();
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
             ),
             SizedBox(width: 20.w),
             Expanded(
               child: Text(
-                title,
+                subject.name,
                 style: ThemeApp.text.regular16black,
               ),
             ),
