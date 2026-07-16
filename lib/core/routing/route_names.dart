@@ -3,6 +3,6 @@ abstract final class RouteNames {
   static const signup = 'signup';
   static const forgetPassword = 'forgetPassword';
   static const profile = 'profile';
-  static const explore = 'explore';
+  static const exam = 'exam';
   static const results = 'results';
 }
