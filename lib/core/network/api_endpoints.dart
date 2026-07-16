@@ -7,15 +7,13 @@ class ApiEndpoints {
   static const editProfile = 'api/v1/auth/editProfile';
   static const deleteAccount = 'api/v1/auth/deleteMe';
   static const logout = 'api/v1/auth/logout';
-  static const signup = 'api/v1/auth/signup';
-  static const signin = 'api/v1/auth/signin';
+  static const register = 'api/v1/auth/signup';
+  static const login = 'api/v1/auth/signin';
   static const addExam = 'api/v1/exams';
 
-  static const getAllExams = 'api/v1/exams';
-
   static const publicEndpoints = [
-    signin,
-    signup,
+    login,
+    register,
     forgotPassword,
     verifyResetCode,
     resetPassword,
