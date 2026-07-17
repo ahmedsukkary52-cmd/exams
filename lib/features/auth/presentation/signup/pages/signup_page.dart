@@ -6,15 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/base/resources.dart';
-import '../../../../core/di/di.dart';
-import '../../../../core/validators/validators_app.dart';
-import '../../../../core/widgets/app_elevated_button.dart';
-import '../../../../core/widgets/app_text_form_field.dart';
-import '../../domain/entites/request/signup_request.dart';
-import '../cubit/auth_cubit.dart';
-import '../cubit/auth_events.dart';
-import '../cubit/auth_state.dart';
+import '../../../../../core/base/resources.dart';
+import '../../../../../core/di/di.dart';
+import '../../../../../core/validators/validators_app.dart';
+import '../../../../../core/widgets/app_elevated_button.dart';
+import '../../../../../core/widgets/app_text_form_field.dart';
+import '../../../domain/entites/request/signup_request.dart';
+import '../cubit/signup_cubit.dart';
+import '../cubit/signup_events.dart';
+import '../cubit/signup_state.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -24,7 +24,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final AuthCubit cubit = getIt();
+  final SignupCubit cubit = getIt();
 
   final _formKey = GlobalKey<FormState>();
   late final List<TextEditingController> _controllers;
@@ -83,7 +83,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: cubit,
-      child: BlocConsumer<AuthCubit, AuthState>(
+      child: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
           switch (state.signup.status) {
             case Status.success:
@@ -158,7 +158,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: passwordController,
                             label: "Password",
                             hint: "Enter password",
-                            obscureText: true,
+                            isPassword: true,
                             validator: ValidatorsApp.validatePassword,
                           ),
                         ),
@@ -167,7 +167,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: confirmPasswordController,
                             label: "Confirm Password",
                             hint: "Confirm password",
-                            obscureText: true,
+                            isPassword: true,
                             validator: (value) {
                               return ValidatorsApp.validateConfirmPassword(
                                 value,
@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
                                 style: ThemeApp.text.medium16blue,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () =>
-                                      context.push(RouteNames.login),
+                                      context.push(RouteNames.explore),
                               ),
                             ],
                           ),

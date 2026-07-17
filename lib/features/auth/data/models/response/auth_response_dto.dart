@@ -1,10 +1,10 @@
 import 'package:exams/features/auth/data/models/response/user_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'signup_response_dto.g.dart';
+part 'auth_response_dto.g.dart';
 
 @JsonSerializable()
-class SignupResponseDto {
+class AuthResponseDto {
   @JsonKey(name: "message")
   final String? message;
   @JsonKey(name: "token")
@@ -12,13 +12,13 @@ class SignupResponseDto {
   @JsonKey(name: "user")
   final UserDto? user;
 
-  SignupResponseDto({this.message, this.token, this.user});
+  AuthResponseDto({this.message, this.token, this.user});
 
-  factory SignupResponseDto.fromJson(Map<String, dynamic> json) {
-    return _$SignupResponseDtoFromJson(json);
+  factory AuthResponseDto.fromJson(Map<String, dynamic> json) {
+    return _$AuthResponseDtoFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    return _$SignupResponseDtoToJson(this);
+    return _$AuthResponseDtoToJson(this);
   }
 }

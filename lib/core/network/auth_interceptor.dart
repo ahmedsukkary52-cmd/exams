@@ -10,9 +10,6 @@ class AuthInterceptor extends Interceptor {
 
   AuthInterceptor(this._tokenStorage);
 
-  // TODO: Remove after implementing login.
-  static const String _tempAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGI1MDM2M2ViMzIyMWQzNmFkYTIwMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg0MTI2OTcyfQ.esD28NrzMcqpux1hIGTD2qZxBy8bf7jf6KnRl3D6KlQ';
-
   @override
   Future<void> onRequest(
       RequestOptions options,
@@ -24,10 +21,9 @@ class AuthInterceptor extends Interceptor {
     }
 
     final token = await _tokenStorage.getAccessToken();
-
-    final accessToken = (token != null && token.isNotEmpty) ? token : _tempAccessToken;
-
-    options.headers['token'] = accessToken;
+    if (token != null && token.isNotEmpty) {
+      options.headers['token'] = token;
+    }
 
     handler.next(options);
   }
@@ -39,7 +35,7 @@ class AuthInterceptor extends Interceptor {
     ErrorInterceptorHandler handler,
   ) async {
     if (err.response?.statusCode == 401) {
-      await _tokenStorage.clear();
+      await _tokenStorage.deleteAccessToken();
     }
 
     handler.next(err);

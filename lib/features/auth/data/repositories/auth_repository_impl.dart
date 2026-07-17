@@ -1,9 +1,10 @@
+import 'package:exams/features/auth/domain/entites/request/sign_in_request.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/safe_call.dart';
 import '../../domain/entites/request/signup_request.dart';
-import '../../domain/entites/response/signup_response.dart';
+import '../../domain/entites/response/auth_response.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/remote/auth_remote_data_source.dart';
 
@@ -14,9 +15,17 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<ApiResult<SignupResponse>> signUp(SignupRequest request) {
+  Future<ApiResult<AuthResponse>> signUp(SignupRequest request) {
     return safeCall(() async {
       final response = await remoteDataSource.signUp(request);
+      return Success(response);
+    });
+  }
+
+  @override
+  Future<ApiResult<AuthResponse>> signIn(SignInRequest request) {
+    return safeCall(() async {
+      final response = await remoteDataSource.signIn(request);
       return Success(response);
     });
   }
