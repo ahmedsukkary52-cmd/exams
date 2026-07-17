@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -10,9 +9,6 @@ import 'auth_interceptor.dart';
 
 @module
 abstract class NetworkModule {
-  @lazySingleton
-  FlutterSecureStorage get secureStorage => const FlutterSecureStorage();
-
   @lazySingleton
   Dio provideDio(AuthInterceptor authInterceptor) {
     final dio = Dio(
