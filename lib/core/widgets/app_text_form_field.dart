@@ -2,7 +2,7 @@ import 'package:exams/core/theme/theme_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
     required this.label,
@@ -11,7 +11,7 @@ class AppTextFormField extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.textInputAction,
-    this.obscureText = false,
+    this.isPassword = false,
     this.prefixIcon,
     this.suffixIcon,
     this.onChanged,
@@ -29,7 +29,7 @@ class AppTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
 
-  final bool obscureText;
+  final bool isPassword;
   final bool readOnly;
 
   final int maxLines;
@@ -41,27 +41,59 @@ class AppTextFormField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
   @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  late bool _isObscure;
+
+  @override
+  void initState() {
+    super.initState();
+    _isObscure = widget.isPassword;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: ThemeApp.colors.blackColor,
-      controller: controller,
-      validator: validator,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      obscureText: obscureText,
-      readOnly: readOnly,
-      maxLines: maxLines,
-      onTap: onTap,
-      onChanged: onChanged,
+      controller: widget.controller,
+      validator: widget.validator,
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
+      obscureText: _isObscure,
+      readOnly: widget.readOnly,
+      maxLines: widget.maxLines,
+      onTap: widget.onTap,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ThemeApp.colors.blackColor),
+          borderSide: BorderSide(
+            color: ThemeApp.colors.blackColor,
+          ),
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.r)),
-        labelText: label,
-        hintText: hint,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.r),
+        ),
+        labelText: widget.label,
+        hintText: widget.hint,
+        prefixIcon: widget.prefixIcon,
+
+        suffixIcon: widget.isPassword
+            ? IconButton(
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+          icon: Icon(
+            _isObscure
+                ? Icons.visibility_off_outlined
+                : Icons.visibility_outlined,
+          ),
+        )
+            : widget.suffixIcon,
+
         labelStyle: ThemeApp.text.regular14gray,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintStyle: ThemeApp.text.regular14gray,

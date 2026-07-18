@@ -1,9 +1,9 @@
 import 'package:exams/features/auth/domain/entites/response/user_entity.dart';
 
-class SignupResponse {
+class AuthResponse {
   final String? message;
   final String? token;
   final UserEntity? user;
 
-  SignupResponse({this.message, this.token, this.user});
+  AuthResponse({this.message, this.token, this.user});
 }
