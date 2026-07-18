@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/routing/route_paths.dart';
 import '../../../../core/theme/theme_app.dart';
 
@@ -45,14 +44,12 @@ class MainPage extends StatelessWidget {
             data: NavigationBarThemeData(
               backgroundColor: ThemeApp.colors.whiteColor,
               indicatorColor: const Color(0xFFDCE8FF),
-              iconTheme: WidgetStateProperty.resolveWith(
-                    (states) => IconThemeData(
+              iconTheme: WidgetStateProperty.resolveWith((states) => IconThemeData(
                   size: 24.sp,
                   color: ThemeApp.colors.primary,
                 ),
               ),
-              labelTextStyle: WidgetStateProperty.resolveWith(
-                    (states) => TextStyle(
+              labelTextStyle: WidgetStateProperty.resolveWith((states) => TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
                   color: ThemeApp.colors.primary,

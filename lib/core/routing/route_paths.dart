@@ -5,4 +5,5 @@ abstract final class RoutePaths {
   static const profile = '/profile';
   static const explore = '/explore';
   static const results = '/results';
+  static const subjectDetails = '/subject-details';
 }

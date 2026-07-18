@@ -27,4 +27,11 @@ abstract class ApiServices {
     @Query('page') required int page,
     @Query('limit') required int limit,
   });
+
+  @GET(ApiEndpoints.getExamsBySubject)
+  Future<ExamsResponseDto> getExamsBySubject({
+    @Query('subject') required String subjectId,
+    @Query('page') required int page,
+    @Query('limit') required int limit,
+  });
 }

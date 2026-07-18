@@ -10,7 +10,7 @@ extension ExamDtoMapper on ExamDto {
       subject: subject ?? '',
       numberOfQuestions: numberOfQuestions ?? 0,
       active: active ?? false,
-      createdAt: createdAt ?? '',
+      createdAt: createdAt ?? DateTime.fromMillisecondsSinceEpoch(0),
     );
   }
 }

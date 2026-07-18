@@ -20,4 +20,9 @@ class ExamsRemoteDataSourceImpl implements ExamsRemoteDataSource {
   Future<SubjectsResponseDto> getSubjects({required int page, required int limit}) async {
     return await _apiServices.getSubjects(page: page, limit: limit);
   }
+
+  @override
+  Future<ExamsResponseDto> getExamsBySubject({required String subjectId, required int page, required int limit}) async {
+    return await _apiServices.getExamsBySubject(subjectId: subjectId, page: page, limit: limit);
+  }
 }

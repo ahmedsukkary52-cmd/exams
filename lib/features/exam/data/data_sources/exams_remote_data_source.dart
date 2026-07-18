@@ -3,5 +3,7 @@ import 'package:exams/features/exam/data/models/response/subjects_response_dto.d
 
 abstract class ExamsRemoteDataSource {
   Future<ExamsResponseDto> getAllExams({required int page, required int limit});
+  Future<ExamsResponseDto> getExamsBySubject({required String subjectId,required int page, required int limit});
+
   Future<SubjectsResponseDto> getSubjects({required int page, required int limit});
 }

@@ -2,8 +2,9 @@ import 'package:exams/features/exam/presentation/widgets/subject_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../core/base/resources.dart';
+import '../../../../core/routing/route_paths.dart';
 import '../cubit/exams_cubit.dart';
 import '../cubit/exams_state.dart';
 
@@ -15,6 +16,8 @@ class SubjectsListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExamsCubit, ExamsState>(
+      buildWhen: (previous, current) => previous.subjectsResource != current.subjectsResource ||
+          previous.isLoadingMoreSubjects != current.isLoadingMoreSubjects,
       builder: (context, state) {
         switch (state.subjectsResource.status) {
           case Status.initial:
@@ -33,12 +36,19 @@ class SubjectsListBuilder extends StatelessWidget {
             );
 
           case Status.success:
-            final subjects = state.subjectsResource.data!;
+            final paginatedSubjects = state.subjectsResource.data!;
+            final subjects = paginatedSubjects.subjects;
+
+            if (subjects.isEmpty) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: Text('No subjects found'),
+                ),
+              );
+            }
 
             return SliverList.separated(
-              itemCount: subjects.length + (state.metaSubjects.status == Status.loading
-                  ? 1
-                  : 0),
+              itemCount: subjects.length + (state.isLoadingMoreSubjects ? 1 : 0),
               separatorBuilder: (_, _) => SizedBox(height: 16.h),
               itemBuilder: (context, index) {
                 if (index == subjects.length) {
@@ -53,7 +63,7 @@ class SubjectsListBuilder extends StatelessWidget {
                 return SubjectCard(
                   subject: subjects[index],
                   onTap: () {
-                    // to later
+                    context.push(RoutePaths.subjectDetails,extra: subjects[index]);
                   },
                 );
               },
