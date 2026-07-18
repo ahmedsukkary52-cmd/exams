@@ -1,4 +1,3 @@
-import 'package:exams/core/di/di.dart';
 import 'package:exams/core/widgets/app_search_field.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_cubit.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_event.dart';
@@ -16,38 +15,45 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
-  final ExamsCubit examsCubit = getIt<ExamsCubit>();
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
+
+  ExamsCubit get examsCubit => context.read<ExamsCubit>();
 
   @override
   void initState() {
     super.initState();
-    examsCubit.doEvent(GetSubjectsEvent());
     _scrollController.addListener(_onScroll);
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+    if (!_scrollController.hasClients) return;
+    final pixels = _scrollController.position;
+
+    if (pixels.extentAfter < 200) {
       examsCubit.doEvent(LoadMoreSubjectsEvent());
     }
+  }
+
+  Future<void> _onRefresh() async {
+    await examsCubit.doEvent(GetSubjectsEvent());
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     _searchController.dispose();
-    examsCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: examsCubit,
-      child: SafeArea(
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: _onRefresh,
         child: CustomScrollView(
           controller: _scrollController,
+          physics: AlwaysScrollableScrollPhysics(),
           slivers: [
             SliverAppBar(
               pinned: true,
@@ -61,7 +67,6 @@ class _ExplorePageState extends State<ExplorePage> {
                 style: ThemeApp.text.medium20blue,
               ),
             ),
-
             SliverPadding(
               padding: EdgeInsets.all(16.w),
               sliver: SliverToBoxAdapter(
@@ -71,7 +76,6 @@ class _ExplorePageState extends State<ExplorePage> {
                 ),
               ),
             ),
-
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -81,7 +85,6 @@ class _ExplorePageState extends State<ExplorePage> {
                 ),
               ),
             ),
-
             SliverPadding(
               padding: EdgeInsets.fromLTRB(
                 16.w,
@@ -89,7 +92,6 @@ class _ExplorePageState extends State<ExplorePage> {
                 16.w,
                 24.h,
               ),
-
               sliver: SubjectsListBuilder(),
             ),
           ],

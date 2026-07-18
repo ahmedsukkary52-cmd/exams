@@ -23,7 +23,7 @@ class ExamDto {
   final bool? active;
 
   @JsonKey(name: "createdAt")
-  final String? createdAt;
+  final DateTime? createdAt;
 
   ExamDto({
     this.id,

@@ -5,7 +5,7 @@ class ExamEntity {
   final String subject;
   final int numberOfQuestions;
   final bool active;
-  final String createdAt;
+  final DateTime createdAt;
 
   const ExamEntity({
     required this.id,
