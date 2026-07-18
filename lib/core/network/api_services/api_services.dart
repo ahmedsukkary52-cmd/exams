@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:exams/core/network/api_endpoints.dart';
-import 'package:exams/features/auth/data/models/request/sign_in_request_dto.dart';
+import 'package:exams/features/auth/data/models/request/signin/sign_in_request_dto.dart';
 import 'package:exams/features/exam/data/models/response/exams_response_dto.dart';
 import 'package:exams/features/exam/data/models/response/subjects_response_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../features/auth/data/models/request/signup_request_dto.dart';
-import '../../../features/auth/data/models/response/auth_response_dto.dart';
+import '../../../features/auth/data/models/request/login/signup_request_dto.dart';
+import '../../../features/auth/data/models/response/auth_response/auth_response_dto.dart';
 import '../api_constants.dart';
 
 part 'api_services.g.dart';
