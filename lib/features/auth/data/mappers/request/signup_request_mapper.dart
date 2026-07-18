@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/data/models/request/signup_request_dto.dart';
+import 'package:exams/features/auth/data/models/request/login/signup_request_dto.dart';
 import 'package:exams/features/auth/domain/entites/request/signup_request.dart';
 
 extension SignupRequestMapper on SignupRequest {

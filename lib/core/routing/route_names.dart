@@ -6,4 +6,5 @@ abstract final class RouteNames {
   static const explore = 'explore';
   static const results = 'results';
   static const subjectDetails = 'subjectDetails';
+  static const emailVerification = 'emailVerification';
 }

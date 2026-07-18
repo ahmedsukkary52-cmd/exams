@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/data/models/response/user_dto.dart';
+import 'package:exams/features/auth/data/models/response/user/user_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_response_dto.g.dart';

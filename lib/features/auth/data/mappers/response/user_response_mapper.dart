@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/data/models/response/user_dto.dart';
+import 'package:exams/features/auth/data/models/response/user/user_dto.dart';
 import 'package:exams/features/auth/domain/entites/response/user_entity.dart';
 
 extension UserResponseMapper on UserDto {

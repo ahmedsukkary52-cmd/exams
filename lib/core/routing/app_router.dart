@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/di/di.dart';
+import '../../features/auth/presentation/email_verification/pages/email_verification.dart';
 import '../../features/auth/presentation/forgot_password/pages/forget_password_page.dart';
 import '../../features/auth/presentation/login/pages/login_page.dart';
 import '../../features/auth/presentation/signup/pages/signup_page.dart';
@@ -33,7 +34,12 @@ GoRouter appRouter(String initialLocation) {
       GoRoute(
         name: RouteNames.forgetPassword,
         path: RoutePaths.forgetPassword,
-        builder: (_, __) => const ForgetPasswordPage(),
+        builder: (_, __) => const ForgotPasswordPage(),
+      ),
+      GoRoute(
+        name: RouteNames.emailVerification,
+        path: RoutePaths.emailVerification,
+        builder: (_, __) => const EmailVerification(),
       ),
       ShellRoute(
         builder: (context, state, child) {

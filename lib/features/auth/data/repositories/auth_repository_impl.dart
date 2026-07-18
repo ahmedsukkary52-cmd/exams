@@ -1,4 +1,6 @@
+import 'package:exams/features/auth/domain/entites/request/forgot_password_request.dart';
 import 'package:exams/features/auth/domain/entites/request/sign_in_request.dart';
+import 'package:exams/features/auth/domain/entites/response/forgot_password_response.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
@@ -26,6 +28,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<ApiResult<AuthResponse>> signIn(SignInRequest request) {
     return safeCall(() async {
       final response = await remoteDataSource.signIn(request);
+      return Success(response);
+    });
+  }
+
+  @override
+  Future<ApiResult<ForgotPasswordResponse>> forgotPassword(
+      ForgotPasswordRequest request) {
+    return safeCall(() async {
+      final response = await remoteDataSource.forgotPassword(request);
       return Success(response);
     });
   }

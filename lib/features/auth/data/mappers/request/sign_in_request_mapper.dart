@@ -1,5 +1,5 @@
 import '../../../domain/entites/request/sign_in_request.dart';
-import '../../models/request/sign_in_request_dto.dart';
+import '../../models/request/signin/sign_in_request_dto.dart';
 
 extension SignInRequestMapper on SignInRequest {
   SignInRequestDto toSignInRequestDto() {

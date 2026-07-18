@@ -22,8 +22,12 @@ import '../../features/auth/data/data_sources/remote/auth_remote_data_source_imp
 import '../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i153;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/usecases/forgot_password_use_case.dart'
+    as _i18;
 import '../../features/auth/domain/usecases/sign_in_use_case.dart' as _i362;
 import '../../features/auth/domain/usecases/signup_use_case.dart' as _i229;
+import '../../features/auth/presentation/forgot_password/cubit/forgot_password_cubit.dart'
+    as _i244;
 import '../../features/auth/presentation/login/cubit/sign_in_cubit.dart'
     as _i767;
 import '../../features/auth/presentation/signup/cubit/signup_cubit.dart'
@@ -109,6 +113,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i854.GetExamsBySubjectUseCase>(),
       ),
     );
+    gh.lazySingleton<_i18.ForgotPasswordUseCase>(
+      () => _i18.ForgotPasswordUseCase(gh<_i787.AuthRepository>()),
+    );
     gh.lazySingleton<_i362.SignInUseCase>(
       () => _i362.SignInUseCase(gh<_i787.AuthRepository>()),
     );
@@ -120,6 +127,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i229.SignupUseCase>(),
         gh<_i973.TokenStorage>(),
       ),
+    );
+    gh.factory<_i244.ForgotPasswordCubit>(
+      () => _i244.ForgotPasswordCubit(gh<_i18.ForgotPasswordUseCase>()),
     );
     gh.factory<_i767.SignInCubit>(
       () => _i767.SignInCubit(

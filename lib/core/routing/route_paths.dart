@@ -6,4 +6,5 @@ abstract final class RoutePaths {
   static const explore = '/explore';
   static const results = '/results';
   static const subjectDetails = '/subject-details';
+  static const emailVerification = '/email-verification';
 }
