@@ -43,5 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/lib/core/network/api_services/api_services.g.dart
-/*.g.dart
+lib/features/exam/data/models/response/exam_dto.g.dart
+lib/core/di/di.config.dart
+**/*.g.dart
