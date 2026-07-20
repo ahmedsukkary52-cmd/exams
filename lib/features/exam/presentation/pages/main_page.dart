@@ -62,8 +62,7 @@ class MainPage extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               elevation: 0,
               selectedIndex: selectedIndex,
-              labelBehavior:
-              NavigationDestinationLabelBehavior.alwaysShow,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               onDestinationSelected: (index) {
                 switch (index) {
                   case 0:
