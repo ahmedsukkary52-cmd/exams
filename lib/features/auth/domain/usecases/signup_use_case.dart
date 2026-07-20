@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
-import '../entites/request/signup_request.dart';
-import '../entites/response/auth_response.dart';
+import '../entities/request/signup_request.dart';
+import '../entities/response/auth_response.dart';
 import '../repositories/auth_repository.dart';
 
 @lazySingleton

@@ -17,14 +17,14 @@ class ExamsBySubjectListBuilder extends StatelessWidget {
           previous.isLoadingMoreExamsBySubjects != current.isLoadingMoreExamsBySubjects,
       builder: (context, state) {
         switch (state.examsBySubjectsResource.status) {
-          case Status.loading:
+          case ResourceStatus.loading:
             return const SliverFillRemaining(
               child: Center(
                 child: CircularProgressIndicator(),
               ),
             );
 
-          case Status.error:
+          case ResourceStatus.error:
             return SliverFillRemaining(
               child: Center(
                 child: Text(
@@ -33,7 +33,7 @@ class ExamsBySubjectListBuilder extends StatelessWidget {
               ),
             );
 
-          case Status.success:
+          case ResourceStatus.success:
             final paginatedExams = state.examsBySubjectsResource.data!;
             final exams = paginatedExams.exams;
 
@@ -72,7 +72,7 @@ class ExamsBySubjectListBuilder extends StatelessWidget {
               },
             );
 
-          case Status.initial:
+          case ResourceStatus.initial:
             return const SliverToBoxAdapter(
               child: SizedBox.shrink(),
             );

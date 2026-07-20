@@ -11,7 +11,7 @@ import '../../../../../core/di/di.dart';
 import '../../../../../core/validators/validators_app.dart';
 import '../../../../../core/widgets/app_elevated_button.dart';
 import '../../../../../core/widgets/app_text_form_field.dart';
-import '../../../domain/entites/request/forgot_password_request.dart';
+import '../../../domain/entities/request/forgot_password_request.dart';
 import '../cubit/forgot_password_cubit.dart';
 import '../cubit/forgot_password_event.dart';
 import '../cubit/forgot_password_state.dart';
@@ -56,10 +56,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           switch (state.forgotPassword.status) {
-            case Status.success:
-              context.goNamed(RouteNames.emailVerification);
+            case ResourceStatus.success:
+              context.goNamed(
+                RouteNames.emailVerification,
+                extra: emailController.text.trim(),
+              );
+              ;
               break;
-            case Status.error:
+            case ResourceStatus.error:
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -97,9 +101,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   SizedBox(height: 48.h),
                   AppElevatedButton(
-                    isLoading: state.forgotPassword.status == Status.loading,
+                    isLoading: state.forgotPassword.status ==
+                        ResourceStatus.loading,
                     onPressed: !state.isFormValid ||
-                        state.forgotPassword.status == Status.loading
+                        state.forgotPassword.status == ResourceStatus.loading
                         ? null
                         : () {
                       final request = ForgotPasswordRequest(

@@ -2,8 +2,8 @@ import 'package:exams/features/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
-import '../entites/request/forgot_password_request.dart';
-import '../entites/response/forgot_password_response.dart';
+import '../entities/request/forgot_password_request.dart';
+import '../entities/response/forgot_password_response.dart';
 
 @lazySingleton
 class ForgotPasswordUseCase {

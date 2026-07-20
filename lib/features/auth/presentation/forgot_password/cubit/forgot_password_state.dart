@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/domain/entites/response/forgot_password_response.dart';
+import 'package:exams/features/auth/domain/entities/response/forgot_password_response.dart';
 
 import '../../../../../core/base/resources.dart';
 

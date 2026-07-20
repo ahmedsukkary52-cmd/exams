@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class EmailVerification extends StatelessWidget {
-  const EmailVerification({super.key});
+class ResetPasswordPage extends StatelessWidget {
+  const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {

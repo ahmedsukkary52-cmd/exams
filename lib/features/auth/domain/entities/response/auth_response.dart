@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/domain/entites/response/user_entity.dart';
+import 'package:exams/features/auth/domain/entities/response/user_entity.dart';
 
 class AuthResponse {
   final String? message;
