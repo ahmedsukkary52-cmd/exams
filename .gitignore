@@ -46,3 +46,4 @@ app.*.map.json
 lib/features/exam/data/models/response/exam_dto.g.dart
 lib/core/di/di.config.dart
 **/*.g.dart
+lib/generated/assets.dart

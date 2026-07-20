@@ -20,7 +20,7 @@ Future<void> main() async {
 
   final initialLocation = rememberMe && token != null
       ? RoutePaths.explore
-      : RoutePaths.login;
+    : RoutePaths.login;
 
   runApp(MyApp(initialLocation: initialLocation));
 }

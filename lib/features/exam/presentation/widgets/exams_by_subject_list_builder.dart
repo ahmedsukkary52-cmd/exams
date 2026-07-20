@@ -3,12 +3,13 @@ import 'package:exams/features/exam/presentation/cubit/exams_cubit.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/routing/route_paths.dart';
+import 'exams_card.dart';
 
 class ExamsBySubjectListBuilder extends StatelessWidget {
-
-  const ExamsBySubjectListBuilder({
-    super.key,
-  });
+  const ExamsBySubjectListBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +60,13 @@ class ExamsBySubjectListBuilder extends StatelessWidget {
 
                 final exam = exams[index];
 
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  child: ListTile(
-                    title: Text(exam.title),
-                    subtitle: Text(
-                      '${exam.numberOfQuestions} Questions • ${exam.duration} min',
+                return Padding(
+                    padding: EdgeInsets.only(bottom: 16.h),
+                    child: ExamCard(
+                      exam: exam,
+                      onTap: () => context.push(RoutePaths.examDetails,extra: exams[index])
                     ),
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                  ),
-                );
+                  );
               },
             );
 

@@ -12,6 +12,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   flutter_screenutil: ^5.9.3
+  intl:
   dio: ^5.7.0
   retrofit: ^4.4.1
   pretty_dio_logger: ^1.4.0
@@ -40,5 +41,5 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
