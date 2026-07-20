@@ -7,6 +7,7 @@ abstract final class RouteNames {
   static const results = 'results';
   static const subjectDetails = 'subjectDetails';
   static const emailVerification = 'emailVerification';
+  static const resetPassword = 'resetPassword';
   static const examDetails = 'examDetails';
   static const examSession = 'examSession';
 }

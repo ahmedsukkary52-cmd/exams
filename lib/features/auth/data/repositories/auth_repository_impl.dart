@@ -1,12 +1,14 @@
-import 'package:exams/features/auth/domain/entites/request/forgot_password_request.dart';
-import 'package:exams/features/auth/domain/entites/request/sign_in_request.dart';
-import 'package:exams/features/auth/domain/entites/response/forgot_password_response.dart';
+import 'package:exams/features/auth/domain/entities/request/forgot_password_request.dart';
+import 'package:exams/features/auth/domain/entities/request/sign_in_request.dart';
+import 'package:exams/features/auth/domain/entities/response/forgot_password_response.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/safe_call.dart';
-import '../../domain/entites/request/signup_request.dart';
-import '../../domain/entites/response/auth_response.dart';
+import '../../domain/entities/request/signup_request.dart';
+import '../../domain/entities/request/verify_reset_code_request.dart';
+import '../../domain/entities/response/auth_response.dart';
+import '../../domain/entities/response/verify_reset_code_response.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/remote/auth_remote_data_source.dart';
 
@@ -34,9 +36,20 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<ApiResult<ForgotPasswordResponse>> forgotPassword(
-      ForgotPasswordRequest request) {
+    ForgotPasswordRequest request,
+  ) {
     return safeCall(() async {
       final response = await remoteDataSource.forgotPassword(request);
+      return Success(response);
+    });
+  }
+
+  @override
+  Future<ApiResult<VerifyResetCodeResponse>> verifyResetCode(
+    VerifyResetCodeRequest request,
+  ) {
+    return safeCall(() async {
+      final response = await remoteDataSource.verifyResetCode(request);
       return Success(response);
     });
   }

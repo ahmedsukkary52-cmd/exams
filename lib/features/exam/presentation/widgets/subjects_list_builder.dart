@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/base/resources.dart';
 import '../../../../core/routing/route_paths.dart';
 import '../cubit/exams_cubit.dart';
@@ -20,22 +21,22 @@ class SubjectsListBuilder extends StatelessWidget {
           previous.isLoadingMoreSubjects != current.isLoadingMoreSubjects,
       builder: (context, state) {
         switch (state.subjectsResource.status) {
-          case Status.initial:
-          case Status.loading:
+          case ResourceStatus.initial:
+          case ResourceStatus.loading:
             return const SliverFillRemaining(
               child: Center(
                 child: CircularProgressIndicator(),
               ),
             );
 
-          case Status.error:
+          case ResourceStatus.error:
             return SliverFillRemaining(
               child: Center(
                 child: Text('Something went wrong'),
               ),
             );
 
-          case Status.success:
+          case ResourceStatus.success:
             final paginatedSubjects = state.subjectsResource.data!;
             final subjects = paginatedSubjects.subjects;
 

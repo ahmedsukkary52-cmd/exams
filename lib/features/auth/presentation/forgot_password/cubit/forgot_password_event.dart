@@ -1,4 +1,4 @@
-import 'package:exams/features/auth/domain/entites/request/forgot_password_request.dart';
+import 'package:exams/features/auth/domain/entities/request/forgot_password_request.dart';
 
 sealed class ForgotPasswordEvent {}
 
