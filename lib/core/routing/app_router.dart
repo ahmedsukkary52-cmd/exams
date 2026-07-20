@@ -1,6 +1,8 @@
+import 'package:exams/features/exam/domain/entities/exam_entity.dart';
 import 'package:exams/features/exam/domain/entities/subject_entity.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_cubit.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_event.dart';
+import 'package:exams/features/exam/presentation/pages/exam_details_page.dart';
 import 'package:exams/features/exam/presentation/pages/main_page.dart';
 import 'package:exams/features/exam/presentation/pages/subject_details_page.dart';
 import 'package:exams/features/exam/presentation/pages/taps/explore_page.dart';
@@ -14,6 +16,7 @@ import '../../features/auth/presentation/email_verification/pages/email_verifica
 import '../../features/auth/presentation/forgot_password/pages/forget_password_page.dart';
 import '../../features/auth/presentation/login/pages/login_page.dart';
 import '../../features/auth/presentation/signup/pages/signup_page.dart';
+import '../../features/exam/presentation/pages/exam_session_page.dart';
 import 'route_names.dart';
 import 'route_paths.dart';
 
@@ -40,6 +43,21 @@ GoRouter appRouter(String initialLocation) {
         name: RouteNames.emailVerification,
         path: RoutePaths.emailVerification,
         builder: (_, __) => const EmailVerification(),
+      ),
+      GoRoute(
+        name: RouteNames.examDetails,
+        path: RoutePaths.examDetails,
+        builder: (context, state) {
+          final exam = state.extra as ExamEntity;
+          return ExamDetailsPage(exam: exam);
+        },
+      ),
+      GoRoute(
+        name: RouteNames.examSession,
+        path: RoutePaths.examSession,
+        builder: (context, state) {
+          return const ExamSessionPage();
+        },
       ),
       ShellRoute(
         builder: (context, state, child) {

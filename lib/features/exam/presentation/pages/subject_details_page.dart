@@ -4,15 +4,14 @@ import 'package:exams/features/exam/presentation/widgets/exams_by_subject_list_b
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/theme/theme_app.dart';
 import '../../domain/entities/subject_entity.dart';
 
 class SubjectDetailsPage extends StatefulWidget {
   final SubjectEntity subject;
 
-  const SubjectDetailsPage({
-    super.key,
-    required this.subject,
-  });
+  const SubjectDetailsPage({super.key, required this.subject});
 
   @override
   State<SubjectDetailsPage> createState() => _SubjectDetailsPageState();
@@ -58,7 +57,12 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.subject.name),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => context.pop(),
+        ),
       ),
+      backgroundColor: ThemeApp.colors.whiteColor,
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: CustomScrollView(
