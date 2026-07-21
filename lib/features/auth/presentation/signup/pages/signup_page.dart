@@ -11,7 +11,7 @@ import '../../../../../core/di/di.dart';
 import '../../../../../core/validators/validators_app.dart';
 import '../../../../../core/widgets/app_elevated_button.dart';
 import '../../../../../core/widgets/app_text_form_field.dart';
-import '../../../domain/entites/request/signup_request.dart';
+import '../../../domain/entities/request/signup_request.dart';
 import '../cubit/signup_cubit.dart';
 import '../cubit/signup_events.dart';
 import '../cubit/signup_state.dart';
@@ -86,10 +86,10 @@ class _SignupPageState extends State<SignupPage> {
       child: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
           switch (state.signup.status) {
-            case Status.success:
+            case ResourceStatus.success:
               context.push(RouteNames.explore);
               break;
-            case Status.error:
+            case ResourceStatus.error:
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.signup.message ?? "Something went wrong"),
@@ -190,10 +190,11 @@ class _SignupPageState extends State<SignupPage> {
                     Column(
                       children: [
                         AppElevatedButton(
-                          isLoading: state.signup.status == Status.loading,
+                          isLoading:
+                              state.signup.status == ResourceStatus.loading,
                           onPressed:
                               !state.isFormValid ||
-                                  state.signup.status == Status.loading
+                                  state.signup.status == ResourceStatus.loading
                               ? null
                               : () {
                                   if (!_formKey.currentState!.validate())

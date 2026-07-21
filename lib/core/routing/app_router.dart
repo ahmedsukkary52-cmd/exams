@@ -1,3 +1,4 @@
+import 'package:exams/features/auth/presentation/reset_password/pages/reset_password_page.dart';
 import 'package:exams/features/exam/domain/entities/exam_entity.dart';
 import 'package:exams/features/exam/domain/entities/subject_entity.dart';
 import 'package:exams/features/exam/presentation/cubit/exams_cubit.dart';
@@ -13,11 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/di/di.dart';
-import '../../features/auth/presentation/email_verification/pages/email_verification.dart';
 import '../../features/auth/presentation/forgot_password/pages/forget_password_page.dart';
 import '../../features/auth/presentation/login/pages/login_page.dart';
 import '../../features/auth/presentation/signup/pages/signup_page.dart';
 import '../../features/exam/presentation/pages/exam_score_page.dart';
+import '../../features/auth/presentation/verify_code/pages/verification_code_page.dart';
 import '../../features/exam/presentation/pages/exam_session_page.dart';
 import '../arguments/exam_score_args.dart';
 import 'route_names.dart';
@@ -45,7 +46,19 @@ GoRouter appRouter(String initialLocation) {
       GoRoute(
         name: RouteNames.emailVerification,
         path: RoutePaths.emailVerification,
-        builder: (_, __) => const EmailVerification(),
+        builder: (_, __) => const VerificationCodePage(),
+      ),
+      GoRoute(
+        name: RouteNames.resetPassword,
+        path: RoutePaths.resetPassword,
+        builder: (_, __) => const ResetPasswordPage(),
+      ),
+      GoRoute(
+        path: RoutePaths.subjectDetails,
+        builder: (context, state) {
+          final subject = state.extra as SubjectEntity;
+          return SubjectDetailsPage(subject: subject);
+        },
       ),
       GoRoute(
         name: RouteNames.examDetails,

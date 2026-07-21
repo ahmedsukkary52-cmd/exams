@@ -1,4 +1,4 @@
-enum Status {
+enum ResourceStatus {
   initial,
   loading,
   success,
@@ -6,7 +6,7 @@ enum Status {
 }
 
 class Resource<T> {
-  final Status status;
+  final ResourceStatus status;
   final T? data;
   final String? message;
   final Exception? exception;
@@ -20,17 +20,17 @@ class Resource<T> {
 
   const Resource.initial()
       : this._(
-    status: Status.initial,
+    status: ResourceStatus.initial,
   );
 
   const Resource.loading()
       : this._(
-    status: Status.loading,
+    status: ResourceStatus.loading,
   );
 
   const Resource.success(T data)
       : this._(
-    status: Status.success,
+    status: ResourceStatus.success,
     data: data,
   );
 
@@ -38,7 +38,7 @@ class Resource<T> {
     String? message,
     Exception? exception,
   }) : this._(
-    status: Status.error,
+    status: ResourceStatus.error,
     message: message,
     exception: exception,
   );

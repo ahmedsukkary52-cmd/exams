@@ -1,5 +1,5 @@
 import '../../../../../core/base/resources.dart';
-import '../../../domain/entites/response/auth_response.dart';
+import '../../../domain/entities/response/auth_response.dart';
 
 class SignInState {
   final Resource<AuthResponse> auth;

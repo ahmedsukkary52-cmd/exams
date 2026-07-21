@@ -1,5 +1,5 @@
 import 'package:exams/features/auth/data/models/response/user/user_dto.dart';
-import 'package:exams/features/auth/domain/entites/response/user_entity.dart';
+import 'package:exams/features/auth/domain/entities/response/user_entity.dart';
 
 extension UserResponseMapper on UserDto {
   UserEntity toUserEntity() {

@@ -1,4 +1,4 @@
-import '../../../domain/entites/request/sign_in_request.dart';
+import '../../../domain/entities/request/sign_in_request.dart';
 
 sealed class SignInEvents {}
 

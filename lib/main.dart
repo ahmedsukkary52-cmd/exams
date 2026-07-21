@@ -2,6 +2,7 @@ import 'package:exams/core/routing/app_router.dart';
 import 'package:exams/core/storage/app_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'core/di/di.dart';
 import 'core/routing/route_paths.dart';
 import 'core/storage/token_storage.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          routerConfig: appRouter(initialLocation),
+          routerConfig: appRouter(RoutePaths.login),
         );
       },
     );
