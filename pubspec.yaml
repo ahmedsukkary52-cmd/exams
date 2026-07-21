@@ -15,7 +15,6 @@ dependencies:
   intl:
   dio: ^5.7.0
   retrofit: ^4.4.1
-  percent_indicator:
   pretty_dio_logger: ^1.4.0
   flutter_bloc: ^8.1.6
   get_it: ^9.2.0
