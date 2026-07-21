@@ -7,7 +7,7 @@ extension ExamDtoMapper on ExamDto {
       id: id ?? '',
       title: title ?? '',
       duration: duration ?? 0,
-      subject: subject ?? '',
+      subjectId: subject ?? '',
       numberOfQuestions: numberOfQuestions ?? 0,
       active: active ?? false,
       createdAt: createdAt ?? DateTime.fromMillisecondsSinceEpoch(0),

@@ -10,7 +10,6 @@ import '../../domain/entities/subject_entity.dart';
 
 class SubjectDetailsPage extends StatefulWidget {
   final SubjectEntity subject;
-
   const SubjectDetailsPage({super.key, required this.subject});
 
   @override
@@ -19,16 +18,12 @@ class SubjectDetailsPage extends StatefulWidget {
 
 class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
   final ScrollController _scrollController = ScrollController();
-
   ExamsCubit get examsCubit => context.read<ExamsCubit>();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      examsCubit.doEvent(GetExamsBySubjectEvent(widget.subject.id));
-    },
-    );
+
     _scrollController.addListener(_onScroll);
   }
 
@@ -37,7 +32,7 @@ class _SubjectDetailsPageState extends State<SubjectDetailsPage> {
     final position = _scrollController.position;
 
     if (position.extentAfter > 200) {
-      examsCubit.doEvent(LoadMoreExamsBySubjectEvent());
+      examsCubit.doEvent(LoadMoreExamsBySubjectEvent(widget.subject.id));
     }
   }
 

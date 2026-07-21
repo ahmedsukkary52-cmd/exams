@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:exams/features/exam/domain/entities/subjects_response_entity.dart';
+import 'package:exams/features/exam/domain/use_cases/get_questions_by_exam_use_case.dart';
 import 'package:exams/features/exam/domain/use_cases/get_subjects_use_case.dart';
+import 'package:exams/features/exam/presentation/cubit/exams_ui_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/base/resources.dart';
 import '../../../../core/network/api_result.dart';
 import '../../domain/entities/exams_response_entity.dart';
+import '../../domain/entities/questions_response_entity.dart';
 import '../../domain/use_cases/get_all_exams_use_case.dart';
 import '../../domain/use_cases/get_exams_by_subject_use_case.dart';
 import 'exams_event.dart';
@@ -17,25 +20,27 @@ class ExamsCubit extends Cubit<ExamsState> {
   final GetAllExamsUseCase _getExamsUseCase;
   final GetSubjectsUseCase _getSubjectsUseCase;
   final GetExamsBySubjectUseCase _getExamsBySubjectUseCase;
+  final GetQuestionsByExamUseCase _getQuestionsByExamUseCase;
 
   ExamsCubit(
       this._getExamsUseCase,
       this._getSubjectsUseCase,
       this._getExamsBySubjectUseCase,
+      this._getQuestionsByExamUseCase
       ) : super(
     const ExamsState(
       examsResource: Resource.initial(),
       subjectsResource: Resource.initial(),
       examsBySubjectsResource: Resource.initial(),
+      questionsByExamResource: Resource.initial(),
       isLoadingMoreExams: false,
       isLoadingMoreSubjects: false,
       isLoadingMoreExamsBySubjects: false,
     ),
   );
 
-  final StreamController<void> _uiController = StreamController<void>.broadcast();
-  Stream<void> get uiStream => _uiController.stream;
-  String? _selectedSubjectId;
+  final StreamController<ExamsUiEvent> _uiController = StreamController<ExamsUiEvent>.broadcast();
+  Stream<ExamsUiEvent> get uiStream => _uiController.stream;
 
   Future<void> doEvent(ExamsEvent event) async {
     switch (event) {
@@ -62,13 +67,34 @@ class ExamsCubit extends Cubit<ExamsState> {
       case LoadMoreExamsBySubjectEvent():
         await _loadMoreExamsBySubject(event);
         break;
+
+      case GetQuestionsByExamsEvent():
+        await _getQuestionsByExam(event);
+        break;
     }
   }
 
 
-  Future<void> _getExamsBySubject(GetExamsBySubjectEvent event) async {
-    _selectedSubjectId = event.subjectId;
+  Future<void> _getQuestionsByExam(GetQuestionsByExamsEvent event) async {
+    emit(state.copyWith(questionsByExamResource: const Resource.loading()));
 
+    final response = await _getQuestionsByExamUseCase(examId: event.examId);
+
+    switch(response) {
+      case Success<QuestionsResponseEntity>():
+        emit(state.copyWith(questionsByExamResource: Resource.success(response.data)));
+        break;
+
+      case Failure<QuestionsResponseEntity>():
+        emit(state.copyWith(questionsByExamResource: Resource.error(
+          message: response.error.message,
+          exception: response.error.exception,
+        )));
+        break;
+    }
+  }
+
+  Future<void> _getExamsBySubject(GetExamsBySubjectEvent event) async {
     emit(state.copyWith(examsBySubjectsResource: const Resource.loading()));
 
     final response = await _getExamsBySubjectUseCase(subjectId: event.subjectId);
@@ -93,7 +119,7 @@ class ExamsCubit extends Cubit<ExamsState> {
   Future<void> _loadMoreExamsBySubject(LoadMoreExamsBySubjectEvent event) async {
     if (state.isLoadingMoreExamsBySubjects) return;
 
-    if (_selectedSubjectId == null) return;
+    if (event.subjectId == null) return;
 
     final current = state.examsBySubjectsResource.data;
 
@@ -103,7 +129,7 @@ class ExamsCubit extends Cubit<ExamsState> {
 
     try {
       final response = await _getExamsBySubjectUseCase(
-        subjectId: _selectedSubjectId!,
+        subjectId: event.subjectId!,
         page: current.nextPage,
       );
 

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:exams/core/network/api_endpoints.dart';
 import 'package:exams/features/auth/data/models/request/signin/sign_in_request_dto.dart';
 import 'package:exams/features/exam/data/models/response/exams_response_dto.dart';
+import 'package:exams/features/exam/data/models/response/questions_response_dto.dart';
 import 'package:exams/features/exam/data/models/response/subjects_response_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -38,5 +39,10 @@ abstract class ApiServices {
     @Query('subject') required String subjectId,
     @Query('page') required int page,
     @Query('limit') required int limit,
+  });
+
+  @GET(ApiEndpoints.getQuestionsByExam)
+  Future<QuestionsResponseDto> getQuestionsByExam({
+    @Query('exam') required String examId,
   });
 }

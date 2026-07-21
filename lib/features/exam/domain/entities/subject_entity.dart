@@ -10,4 +10,10 @@ class SubjectEntity {
     required this.icon,
     required this.createdAt,
   });
+
+  SubjectEntity.empty():
+        id = '',
+        name = '',
+        icon = '',
+        createdAt = DateTime.fromMillisecondsSinceEpoch(0);
 }

@@ -8,6 +8,7 @@ import 'package:exams/features/exam/presentation/pages/main_page.dart';
 import 'package:exams/features/exam/presentation/pages/subject_details_page.dart';
 import 'package:exams/features/exam/presentation/pages/taps/explore_page.dart';
 import 'package:exams/features/profile/presentation/pages/profile_page.dart';
+import 'package:exams/features/results/presentation/pages/answers_page.dart';
 import 'package:exams/features/results/presentation/pages/results_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,8 +17,10 @@ import '../../core/di/di.dart';
 import '../../features/auth/presentation/forgot_password/pages/forget_password_page.dart';
 import '../../features/auth/presentation/login/pages/login_page.dart';
 import '../../features/auth/presentation/signup/pages/signup_page.dart';
+import '../../features/exam/presentation/pages/exam_score_page.dart';
 import '../../features/auth/presentation/verify_code/pages/verification_code_page.dart';
 import '../../features/exam/presentation/pages/exam_session_page.dart';
+import '../arguments/exam_score_args.dart';
 import 'route_names.dart';
 import 'route_paths.dart';
 
@@ -69,8 +72,40 @@ GoRouter appRouter(String initialLocation) {
         name: RouteNames.examSession,
         path: RoutePaths.examSession,
         builder: (context, state) {
-          return const ExamSessionPage();
+          final exam = state.extra as ExamEntity;
+          return BlocProvider(
+            create: (context) => getIt<ExamsCubit>()..doEvent(GetQuestionsByExamsEvent(exam.id)),
+            child: ExamSessionPage(exam: exam),
+          );
         },
+      ),
+      GoRoute(
+        name: RouteNames.examScore,
+        path: RoutePaths.examScore,
+        builder: (context, state) {
+          final args = state.extra as ExamScoreArgs;
+          return ExamScorePage(
+            questions: args.questions,
+            selectedAnswers: args.selectedAnswers,
+          );
+        },
+      ),
+      GoRoute(
+        name: RouteNames.answers,
+        path: RoutePaths.answers,
+        builder: (context, state) {
+          return AnswersPage();
+        },
+      ),
+      GoRoute(
+        name: RouteNames.subjectDetails,
+        path: RoutePaths.subjectDetails,
+        builder: (context, state) {
+          final subject = state.extra as SubjectEntity;
+          return BlocProvider(
+            create: (_) => getIt<ExamsCubit>()..doEvent(GetExamsBySubjectEvent(subject.id)),
+            child: SubjectDetailsPage(subject: subject));
+          },
       ),
       ShellRoute(
         builder: (context, state, child) {

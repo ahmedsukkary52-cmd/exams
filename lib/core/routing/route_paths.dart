@@ -10,4 +10,6 @@ abstract final class RoutePaths {
   static const resetPassword = '/reset-password';
   static const examDetails = '/exam-details';
   static const examSession = '/exam-session';
+  static const examScore = '/exam-score';
+  static const answers = '/answers';
 }

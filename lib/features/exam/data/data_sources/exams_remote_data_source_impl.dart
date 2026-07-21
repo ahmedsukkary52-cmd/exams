@@ -1,6 +1,7 @@
 import 'package:exams/core/network/api_services/api_services.dart';
 import 'package:exams/features/exam/data/data_sources/exams_remote_data_source.dart';
 import 'package:exams/features/exam/data/models/response/exams_response_dto.dart';
+import 'package:exams/features/exam/data/models/response/questions_response_dto.dart';
 import 'package:exams/features/exam/data/models/response/subjects_response_dto.dart';
 import 'package:injectable/injectable.dart';
 @LazySingleton(as: ExamsRemoteDataSource)
@@ -24,5 +25,10 @@ class ExamsRemoteDataSourceImpl implements ExamsRemoteDataSource {
   @override
   Future<ExamsResponseDto> getExamsBySubject({required String subjectId, required int page, required int limit}) async {
     return await _apiServices.getExamsBySubject(subjectId: subjectId, page: page, limit: limit);
+  }
+
+  @override
+  Future<QuestionsResponseDto> getQuestionsByExam({required String examId}) async {
+    return await _apiServices.getQuestionsByExam(examId: examId);
   }
 }
