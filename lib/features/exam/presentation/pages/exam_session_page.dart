@@ -214,7 +214,7 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
       },
       child: BlocListener<ExamsCubit, ExamsState>(
         listener: (context, state) {
-          if(state.questionsByExamResource.status == Status.success && !_startTimer) {
+          if(state.questionsByExamResource.status == ResourceStatus.success && !_startTimer) {
             setState(() => _startTimer = true,);
           }
         },
@@ -230,14 +230,14 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
             child: BlocBuilder<ExamsCubit, ExamsState>(
               builder: (context, state) {
                 switch(state.questionsByExamResource.status) {
-                  case Status.initial:
-                  case Status.loading:
+                  case ResourceStatus.initial:
+                  case ResourceStatus.loading:
                     return const Center(child: CircularProgressIndicator());
 
-                  case Status.error:
+                  case ResourceStatus.error:
                     return Center(child: Text(state.questionsByExamResource.message!));
 
-                  case Status.success:
+                  case ResourceStatus.success:
                     _questions = state.questionsByExamResource.data!.questions;
 
                     return Column(
