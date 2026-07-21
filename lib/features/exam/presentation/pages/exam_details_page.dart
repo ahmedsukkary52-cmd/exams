@@ -23,12 +23,12 @@ class ExamDetailsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: ThemeApp.colors.whiteColor,
       appBar: AppBar(
-        backgroundColor: ThemeApp.colors.whiteColor,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => context.pop(),
-        ),
+      backgroundColor: ThemeApp.colors.whiteColor,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new),
+        onPressed: () => context.pop(),
       ),
+    ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -132,7 +132,7 @@ class ExamDetailsPage extends StatelessWidget {
               SizedBox(height: 48.h),
               AppElevatedButton(
                 text: 'Start',
-                onPressed:() => context.push(RoutePaths.examSession),
+                onPressed:() => context.push(RoutePaths.examSession, extra: exam)
               ),
             ],
           ),

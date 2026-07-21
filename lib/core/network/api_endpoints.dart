@@ -15,6 +15,7 @@ class ApiEndpoints {
   static const getExamsBySubject = 'api/v1/exams';
 
   static const getSubjects = 'api/v1/subjects';
+  static const getQuestionsByExam = 'api/v1/questions';
 
   static const publicEndpoints = [
     signin,

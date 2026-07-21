@@ -9,4 +9,6 @@ abstract final class RoutePaths {
   static const emailVerification = '/email-verification';
   static const examDetails = '/exam-details';
   static const examSession = '/exam-session';
+  static const examScore = '/exam-score';
+  static const answers = '/answers';
 }

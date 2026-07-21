@@ -9,4 +9,6 @@ abstract final class RouteNames {
   static const emailVerification = 'emailVerification';
   static const examDetails = 'examDetails';
   static const examSession = 'examSession';
+  static const examScore = 'examScore';
+  static const answers = 'answers';
 }

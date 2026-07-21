@@ -8,10 +8,14 @@ class GetExamsBySubjectEvent extends ExamsEvent {
   GetExamsBySubjectEvent(this.subjectId);
 }
 class LoadMoreExamsBySubjectEvent extends ExamsEvent {
-  LoadMoreExamsBySubjectEvent();
+  String? subjectId;
+  LoadMoreExamsBySubjectEvent(this.subjectId);
 }
 
 class GetSubjectsEvent extends ExamsEvent {}
 class LoadMoreSubjectsEvent extends ExamsEvent {}
 
-sealed class ExamsUiEvent {}
+class GetQuestionsByExamsEvent extends ExamsEvent {
+  final String examId;
+  GetQuestionsByExamsEvent(this.examId);
+}
