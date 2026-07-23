@@ -42,7 +42,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
         listener: (context, state) {
           switch (state.verifyResetCode.status) {
             case ResourceStatus.success:
-              context.goNamed(RouteNames.resetPassword);
+              context.goNamed(RouteNames.resetPassword, extra: email);
               break;
 
             case ResourceStatus.error:
