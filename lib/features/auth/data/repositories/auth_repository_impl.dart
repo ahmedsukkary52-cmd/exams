@@ -1,6 +1,8 @@
 import 'package:exams/features/auth/domain/entities/request/forgot_password_request.dart';
+import 'package:exams/features/auth/domain/entities/request/reset_password_request.dart';
 import 'package:exams/features/auth/domain/entities/request/sign_in_request.dart';
 import 'package:exams/features/auth/domain/entities/response/forgot_password_response.dart';
+import 'package:exams/features/auth/domain/entities/response/reset_password_response.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/network/api_result.dart';
@@ -50,6 +52,15 @@ class AuthRepositoryImpl implements AuthRepository {
   ) {
     return safeCall(() async {
       final response = await remoteDataSource.verifyResetCode(request);
+      return Success(response);
+    });
+  }
+
+  @override
+  Future<ApiResult<ResetPasswordResponse>> resetPassword(
+      ResetPasswordRequest request) {
+    return safeCall(() async {
+      final response = await remoteDataSource.resetPassword(request);
       return Success(response);
     });
   }
